@@ -175,9 +175,11 @@ esyRewriteSymlink () {
 #
 
 modTimeCommand="stat -c %Y"
+mkTempDirCommand="mktemp -d"
 case $(uname) in
   Darwin*)
     modTimeCommand="stat -f %m"
+    mkTempDirCommand="mktemp -d -t esyTmpDir"
     ;;
   Linux*)
     ;;
@@ -205,6 +207,14 @@ esyFindSourceModTime () {
     -not -path "$root/_release" \
     -exec $modTimeCommand {} \; | sort -r | head -n1)
   echo "$maxMtime"
+}
+
+#
+# Generate a temporary directory
+#
+esyMkTempDir () {
+  local tmpDir=$($mkTempDirCommand)
+  echo "$tmpDir"
 }
 
 #

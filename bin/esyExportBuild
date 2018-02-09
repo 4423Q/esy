@@ -28,7 +28,7 @@ source "$BINDIR/esyRuntime.sh"
 buildPath="$1"
 buildId=$(basename "$buildPath")
 
-stageDir=$(mktemp -d)
+stageDir=$(esyMkTempDir)
 stageBuildPath="$stageDir/$buildId"
 
 if [ $# -lt 2 ]; then
